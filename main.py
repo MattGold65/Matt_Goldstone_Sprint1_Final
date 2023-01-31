@@ -30,7 +30,7 @@ def convert_request_to_json(response_obj):
 
 def write_to_file(data):
     file_object = open(r"Entries.json", "w")
-    file_object.write(json.dumps(data,indent=4))
+    file_object.write(json.dumps(data, indent=4))
     file_object.close()
     print("Entries sucessfully written")
 
@@ -48,3 +48,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
