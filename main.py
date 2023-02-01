@@ -1,6 +1,5 @@
 import requests
 import json
-import secreteclass
 from secreteclass import api_key
 
 
@@ -30,7 +29,7 @@ def convert_request_to_json(response_obj):
 
 def write_to_file(data):
     file_object = open(r"Entries.json", "w")
-    file_object.write(json.dumps(data,indent=4))
+    file_object.write(json.dumps(data, indent=4))
     file_object.close()
     print("Entries sucessfully written")
 
@@ -39,7 +38,7 @@ def main():
     base_url = 'https://mattgold65.wufoo.com/api/v3/' \
                'forms/termination-checklist-copy/entries/json'
     password = 'footastic'
-    API = secreteclass.api_key
+    API = api_key
     get_request = issue_get_request(base_url, API, password)
     json = convert_request_to_json(get_request)
     print(json)
