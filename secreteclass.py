@@ -1,1 +1,0 @@
-api_key = 'ZOOD-JKNV-AY1A-9057'
