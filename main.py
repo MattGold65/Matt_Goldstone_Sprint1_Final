@@ -1,6 +1,6 @@
 import requests
 import json
-from secreteclass import api_key
+from tests.secreteclass import api_key
 import sqlite3
 
 
