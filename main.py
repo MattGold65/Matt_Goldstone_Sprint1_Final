@@ -4,11 +4,11 @@ from secreteclass import api_key
 import sqlite3
 
 
-def issue_get_request(target_url: str, username: str, password: str):
+def issue_get_request(target_url: str, password: str):
     """This function passes in a Wufoo url, username, and password
     and returns a response object. If a get request is made unsuccessfully
     this function will return the error code and a description."""
-    response = requests.get(target_url, auth=(username, password))
+    response = requests.get(target_url, auth=(api_key, password))
     if response.status_code != 200:
         print(f'The GET request was NOT successful\n'
               f'{response.status_code} [{response.reason}]')
@@ -99,8 +99,7 @@ def main():
     base_url = 'https://mattgold65.wufoo.com/api/v3/' \
                'forms/termination-checklist-copy/entries/json'
     password = 'footastic'
-    API = api_key
-    get_request = issue_get_request(base_url, API, password)
+    get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
     dbconnection = newDatabase('Wufoo_Enries_db.db')
     dbcursor = createDatabaseCursor(dbconnection)
