@@ -4,7 +4,7 @@ from secreteclass import api_key
 import sqlite3
 
 
-def issue_get_request(target_url: str, password: str):
+def issue_get_request(target_url: str, password: str):  # comment to test workflow
     """This function passes in a Wufoo url, username, and password
     and returns a response object. If a get request is made unsuccessfully
     this function will return the error code and a description."""
@@ -96,8 +96,9 @@ def newDatabaseTable(cursor: sqlite3.Cursor, tablename, *fields):
 def main():
     """This function calls all the functions
      above and runs the program."""
-    base_url = 'https://mattgold65.wufoo.com/api/v3/' \
-               'forms/termination-checklist-copy/entries/json'
+    # base_url = 'https://mattgold65.wufoo.com/api/v3/' \
+    #            'forms/termination-checklist-copy/entries/json'
+    base_url = "https://jsantore.wufoo.com/api/v3/forms/cubes-project-proposal-submission/entries/json"
     password = 'footastic'
     get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
