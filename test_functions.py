@@ -35,7 +35,16 @@ def test_convert_to_json():
 
 
 def test_newDatabase():
+    base_url = 'https://mattgold65.wufoo.com/api/v3/' \
+               'forms/termination-checklist-copy/entries/json'
+    password = 'footastic'
+    API = api_key
+    get_request = issue_get_request(base_url, API, password)
+
+    json_data = convert_request_to_json(get_request)
+
     database_name = 'testdb'
+    table_name = 'testtable'
 
     try:
         test_database = newDatabase(database_name)
@@ -56,10 +65,10 @@ def test_newDatabase():
     assert dbcursor is not None
 
     try:
-        tableCreationString = newDatabaseTable(dbcursor, database_name,
+        tableCreationString = newDatabaseTable(dbcursor, table_name,
                                                'testfield1', 'testfield2',
                                                'testfield3', 'testfield4',
-                                               'testfield5')
+                                               'testfield5', 'testfield6')
 
     except sqlite3.Error as error:
 
@@ -67,3 +76,19 @@ def test_newDatabase():
                             f' trying to create a table')
 
     assert tableCreationString != ""
+
+    dbcursor.execute('DELETE FROM testtable')
+
+    for entry in json_data['Entries']:
+        dbcursor.execute('''INSERT INTO 'testtable'
+         VALUES(?, ?, ?, ?, ?, ?)''',
+                         (entry.get('EntryId', None),
+                          entry.get('Field715', None),
+                          entry.get('Field1', None),
+                          entry.get('Field2', None),
+                          entry.get('Field711', None),
+                          entry.get('Field723', None)))
+
+    assert len(entry) > 5
+    test_database.commit()
+    test_database.close()
