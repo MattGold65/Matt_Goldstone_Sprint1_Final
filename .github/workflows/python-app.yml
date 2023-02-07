@@ -41,4 +41,7 @@ jobs:
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        pip install pytest
+        pip install requests
+        from secreteclass import api_key
         python -m pytest tests/*
