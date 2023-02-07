@@ -3,7 +3,7 @@ from main import issue_get_request, convert_request_to_json,\
 from secreteclass import api_key
 import requests
 import sqlite3
-
+import pytest
 
 def test_issue_get_request():
 
