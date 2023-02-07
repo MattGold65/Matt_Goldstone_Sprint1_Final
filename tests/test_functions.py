@@ -1,6 +1,5 @@
 from main import issue_get_request, convert_request_to_json,\
     newDatabase, newDatabaseTable
-from secreteclass import api_key
 import requests
 import sqlite3
 
