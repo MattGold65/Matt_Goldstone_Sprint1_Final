@@ -23,11 +23,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Build secreteclass
+    - name: Build Secrets
       env:
-        API_KEY: ${{secreteclass.WOFOO_KEY}}
+        API_KEY: ${{secrets.WOFOO_KEY}}
       run: |
-        echo 'wofoo_key = "'$API_KEY'"' >> secreteclass.py
+        echo 'wofoo_key = "'$API_KEY'"' >> secrets.py
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
