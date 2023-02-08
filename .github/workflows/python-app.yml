@@ -25,9 +25,9 @@ jobs:
         python-version: "3.10"
     - name: Build Secrets
       env:
-        API_KEY: ${{secrets.WOFOO_KEY}}
+        api_key: ${{secrets.WOFOO_KEY}}
       run: |
-        echo 'wofoo_key = "'$API_KEY'"' >> secrets.py
+        echo 'api_key = "'$api_key'"' >> secreteclass.py
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
