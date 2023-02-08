@@ -97,7 +97,7 @@ def main():
     """This function calls all the functions
      above and runs the program."""
     base_url = 'https://mattgold65.wufoo.com/api/v3/' \
-                'forms/termination-checklist-copy/entries/json'
+        'forms/termination-checklist-copy/entries/json'
     password = 'footastic'
     get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
