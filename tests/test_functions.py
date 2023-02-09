@@ -28,7 +28,7 @@ def test_convert_to_json():
                        f'response content to a JSON object:'
                        f' \n'f'{json_decode_error}')
 
-    assert len(json_data['Entries'][0]) > 10
+    assert len(json_data['Entries']) >= 10
 
 
 def test_newDatabase():
