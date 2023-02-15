@@ -1,7 +1,9 @@
+import tkinter
 import requests
 import json
 from secreteclass import api_key
 import sqlite3
+
 
 
 def issue_get_request(target_url: str, password: str):
@@ -93,7 +95,48 @@ def newDatabaseTable(cursor: sqlite3.Cursor, tablename, *fields):
         print(f'Database {error} has occurred trying to create a table')
 
 
+
+def fetchDataframe(root, entry):
+    Dataframe = tkinter.Frame(root,bg="#000000")
+    Dataframe.grid(row=0, column=0, sticky="nesw")
+    tkinter.Label(Dataframe, text="Full Name: " + entry.get('Field715', None) + entry.get('Field1', None) + entry.get('Field2', None), bg="#000000", fg="white", font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Company: " + entry.get('Field713', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Title: " + entry.get('Field711', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Email: " + entry.get('Field917', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Organization Website: " + entry.get('Field716', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Phone Number: " + entry.get('Field714', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Permission: " + entry.get('Field918', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Collaberation Opportunities: " + entry.get('Field717', None) + " " + entry.get('Field718', None) + " " + entry.get('Field719', None) + " " + entry.get('Field720', None)+ " " + entry.get('Field721', None) + " " + entry.get('Field722', None) + " " + entry.get('Field723', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+    tkinter.Label(Dataframe, text="Collaberation Time: " + entry.get('Field817', None) + " " + entry.get('Field818', None) + " " + entry.get('Field819', None)+ " " + entry.get('Field820', None) + " " + entry.get('Field821', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
+
+
+def generateButtons(json, frame, root):
+
+    for entry in json['Entries']:
+
+        tkinter.Button(frame, text=entry.get('Field715', None) + entry.get('Field2', None) + " : " + entry.get('Field713', None), font=("TKHeadingFont", 10), bg="#000000", fg="white", cursor="hand2", activebackground="#badee2", activeforeground="blue", command=lambda entry = entry: fetchDataframe(root, entry)).pack(pady=10)
+
+
+def initiallizeGUI(json):
+    #Launch GUI
+    root = tkinter.Tk()
+    root.title("WUFOO Database")
+    root.eval("tk::PlaceWindow . center")
+    Mainframe = tkinter.Frame(root, width=1000, height=1200, bg="#000000")
+    Mainframe.grid(row=0, column=0, sticky="nesw")
+    Mainframe.pack_propagate(False)
+
+    #Heading text on GUI
+    tkinter.Label(Mainframe, text="Select an entry", bg="#000000", fg="white", font=("TkDefaultFont", 14)).pack()
+
+    #generate buttons
+    generateButtons(json, Mainframe, root)
+    #run GUI
+    root.mainloop()
+
+
 def main():
+
     """This function calls all the functions
      above and runs the program."""
     base_url = 'https://mattgold65.wufoo.com/api/v3/' \
@@ -101,6 +144,8 @@ def main():
     password = 'footastic'
     get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
+    initiallizeGUI(json)
+    print(json['Entries'][5].get('Field2', None))
     dbconnection = newDatabase('Wufoo_Enries_db.db')
     dbcursor = createDatabaseCursor(dbconnection)
     newDatabaseTable(dbcursor, 'guest_infomation', 'EntryID', 'Prefix',
