@@ -1,11 +1,11 @@
 from main import issue_get_request, convert_request_to_json,\
-    newDatabase, newDatabaseTable
+    newDatabase, newDatabaseTable, fetchDataframe, generateButtons, createDatabaseCursor
 import requests
 import sqlite3
+import tkinter
 
 
 def test_issue_get_request():
-
     base_url = 'https://mattgold65.wufoo.com/api/v3/' \
                'forms/termination-checklist-copy/entries/json'
     password = 'footastic'
@@ -88,3 +88,32 @@ def test_newDatabase():
     assert len(entry) > 5
     test_database.commit()
     test_database.close()
+
+
+def test_fetchDataframe():
+    base_url = 'https://mattgold65.wufoo.com/api/v3/' \
+               'forms/termination-checklist-copy/entries/json'
+    password = 'footastic'
+    get_request = issue_get_request(base_url, password)
+
+    json_data = convert_request_to_json(get_request)
+
+    root = tkinter.Tk()
+
+    entry = json_data['Entries'][5]
+
+    assert fetchDataframe(root, entry, json_data)[0] == json_data['Entries'][5].get('Field715', None) + json_data['Entries'][5].get('Field1', None) + json_data['Entries'][5].get('Field2', None)
+    assert fetchDataframe(root, entry, json_data)[1] == json_data['Entries'][5].get('Field713', None)
+    assert fetchDataframe(root, entry, json_data)[2] == json_data['Entries'][5].get('Field714', None)
+    assert fetchDataframe(root, entry, json_data)[3] == json_data['Entries'][5].get('Field918', None) + json_data['Entries'][5].get('Field718', None)
+    assert fetchDataframe(root, entry, json_data)[4] == json_data['Entries'][5].get('Field817', None) + json_data['Entries'][5].get('Field820', None)
+
+def test_databaseTable():
+    assert len(sqlite3.connect('testdb').execute("SELECT testfield1 FROM 'testtable'").fetchall()) > 1
+
+
+
+
+
+
+
