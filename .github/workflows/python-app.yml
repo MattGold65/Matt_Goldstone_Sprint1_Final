@@ -41,6 +41,8 @@ jobs:
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        import matplotlib
+        matplotlib.use('Agg')
         pip install pytest
         pip install requests
         pip install Pillow
