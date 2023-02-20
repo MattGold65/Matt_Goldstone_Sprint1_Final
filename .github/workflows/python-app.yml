@@ -44,5 +44,5 @@ jobs:
         pip install pytest
         pip install requests
         pip install Pillow
-        pip install tk
+        from tkinter import Tk
         python -m pytest tests/*
