@@ -1,8 +1,9 @@
-import tkinter
+from tkinter import Tk, Frame, Label, Button
 import requests
 import json
 from secreteclass import api_key
 import sqlite3
+from PIL import ImageTk, Image
 
 
 def issue_get_request(target_url: str, password: str):
@@ -93,58 +94,125 @@ def newDatabaseTable(cursor: sqlite3.Cursor, tablename, *fields):
 
         print(f'Database {error} has occurred trying to create a table')
 
+
 def generateButtons(json, frame, root):
 
     for entry in json['Entries']:
 
-        tkinter.Button(frame, text=entry.get('Field715', None) + entry.get('Field2', None) + " : " + entry.get('Field713', None), font=("TKHeadingFont", 10), bg="#000000", fg="white", cursor="hand2", activebackground="#badee2", activeforeground="blue", command=lambda entry = entry: fetchDataframe(root, entry,json)).pack(pady=10)
+        Button(frame, text=entry.get('Field715', None)
+               + entry.get('Field2', None) + " : " +
+               entry.get('Field713', None),
+               font=("TKHeadingFont", 10), bg="#89191F", fg="white",
+               cursor="hand2", activebackground="#badee2",
+               activeforeground="#f00505",
+               command=lambda entry=entry:
+               fetchDataframe(root, entry, json)).pack(pady=10)
 
 
 def generateMainframe(json, root):
-    Mainframe = tkinter.Frame(root, width=1000, height=1200, bg="#000000")
+    Mainframe = Frame(root, width=1000, height=1200, bg="white")
     Mainframe.grid(row=0, column=0, sticky="nesw")
     Mainframe.pack_propagate(False)
 
-    tkinter.Label(Mainframe, text="Select an entry", bg="#000000", fg="white", font=("TkDefaultFont", 14)).pack()
+    pic = Image.open("standard.png")
+    resized_pic = pic.resize((450, 120), Image.Resampling.LANCZOS)
+    photo_label = ImageTk.PhotoImage(resized_pic)
+    img_label = Label(Mainframe, image=photo_label)
+    img_label.image_ref = photo_label
+    img_label.pack(pady=20)
 
+    Label(Mainframe, text="Select an entry", bg="white",
+          fg="#3d3d3d", font=("TkDefaultFont", 14, "bold")).pack()
     generateButtons(json, Mainframe, root)
 
+
 def fetchDataframe(root, entry, json):
-    Dataframe = tkinter.Frame(root,bg="#000000")
+    Dataframe = Frame(root, bg="#89191F")
     Dataframe.grid(row=0, column=0, sticky="nesw")
-    tkinter.Label(Dataframe, text="Full Name: " + entry.get('Field715', None) + entry.get('Field1', None) + entry.get('Field2', None), bg="#000000", fg="white", font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Company: " + entry.get('Field713', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Title: " + entry.get('Field711', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Email: " + entry.get('Field917', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Organization Website: " + entry.get('Field716', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Phone Number: " + entry.get('Field714', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Permission: " + entry.get('Field918', None), bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Collaberation Opportunities: " + " [" + entry.get('Field717', None) + "]" + " [" + entry.get('Field718', None) + "]" +" [" + entry.get('Field719', None) + "]" + " [" + entry.get('Field720', None)+ "]" + " [" + entry.get('Field721', None) + "]" + " [" + entry.get('Field722', None) + "]" + " [" + entry.get('Field723', None) + "]", bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
-    tkinter.Label(Dataframe, text="Collaberation Time: " + " [" + entry.get('Field817', None) + "]" + " [" + entry.get('Field818', None) + "]" + " [" + entry.get('Field819', None)+ "]" + " [" + entry.get('Field820', None) + "]" + " [" + entry.get('Field821', None) + "]", bg="#000000", fg="white",font=("TkDefaultFont", 14)).pack()
 
-    tkinter.Button(Dataframe,
-                   text="Go Back",
-                   font=("TKHeadingFont", 10), bg="#000000", fg="white", cursor="hand2", activebackground="#badee2",
-                   activeforeground="blue", command=lambda: generateMainframe(json, root)).pack(pady=10)
+    Label(Dataframe, text="Full Name:", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field715', None)
+          + entry.get('Field1', None)
+          + " " + entry.get('Field2', None),
+          bg="#89191F", fg="white", font=("TkDefaultFont", 12)).pack()
 
-    Name = entry.get('Field715', None) + entry.get('Field1', None) + entry.get('Field2', None)
+    Label(Dataframe, text="\n" + "Company: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field713', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Title: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field711', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Email: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field917', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Organization Website: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field716', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Phone Number: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field714', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Permission: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=entry.get('Field918', None), bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Collaberation Opportunities: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=" [" + entry.get('Field717', None) + "]" +
+                          "\n" + " [" + entry.get('Field718', None) + "]" +
+                          "\n" + " [" + entry.get('Field719', None) + "]" +
+                          "\n" + " [" + entry.get('Field720', None) + "]" +
+                          "\n" + " [" + entry.get('Field721', None) + "]" +
+                          "\n" + " [" + entry.get('Field722', None) + "]" +
+                          "\n" + " [" + entry.get('Field723', None) + "]",
+                          bg="#89191F", fg="white",
+                          font=("TkDefaultFont", 12)).pack()
+
+    Label(Dataframe, text="\n" + "Collaberation Time: ",
+                          bg="#89191F", fg="white",
+                          font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text=" [" + entry.get('Field817', None) + "]" +
+                          "\n" + " [" + entry.get('Field818', None) + "]" +
+                          "\n" + " [" + entry.get('Field819', None) + "]" +
+                          "\n" + " [" + entry.get('Field820', None) + "]" +
+                          "\n" + " [" + entry.get('Field821', None) + "]",
+                          bg="#89191F", fg="white",
+                          font=("TkDefaultFont", 12)).pack()
+
+    Button(Dataframe,
+           text="Go Back",
+           font=("TKHeadingFont", 10), bg="#89191F", fg="white",
+           cursor="hand2", activebackground="#badee2",
+           activeforeground="blue",
+           command=lambda: generateMainframe(json, root)).pack(pady=10)
+
+    Name = entry.get('Field715', None) +\
+        entry.get('Field1', None) +\
+        entry.get('Field2', None)
     Company = entry.get('Field713', None)
     phone_number = entry.get('Field714', None)
-    collab_opps =  entry.get('Field918', None) + entry.get('Field718', None)
+    collab_opps = entry.get('Field918', None) + entry.get('Field718', None)
     collab_time = entry.get('Field817', None) + entry.get('Field820', None)
 
     return Name, Company, phone_number, collab_opps, collab_time
 
 
-
-
 def initiallizeGUI(json):
-    #Launch GUI
-    root = tkinter.Tk()
+    root = Tk()
     root.title("WUFOO Database")
     root.eval("tk::PlaceWindow . center")
     generateMainframe(json, root)
-    #run GUI
     root.mainloop()
 
 
@@ -157,13 +225,9 @@ def main():
     get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
     initiallizeGUI(json)
-
     entry = json['Entries'][5]
-
-
     dbconnection = newDatabase('Wufoo_Enries_db.db')
     dbcursor = createDatabaseCursor(dbconnection)
-    cursor_location = dbcursor
     newDatabaseTable(dbcursor, 'guest_infomation', 'EntryID', 'Prefix',
                      'FirstName', 'LastName', 'Title', 'OrgName',
                      'Email', 'OrgWebsite', 'PhoneNum', 'NameAuth')
@@ -173,7 +237,6 @@ def main():
     newDatabaseTable(dbcursor, 'collab_time', 'EntryID', 'Summer2022',
                      'Fall2022', 'Spring2023', 'Summer2023', 'Other')
     write_to_file(json)
-
 
     dbcursor.execute('DELETE FROM guest_infomation')
     dbcursor.execute('DELETE FROM collab_opps')
@@ -213,9 +276,9 @@ def main():
                           entry.get('Field820', None),
                           entry.get('Field821', None)))
 
-
-
     dbconnection.commit()
     dbconnection.close()
+
+
 if __name__ == "__main__":
     main()
