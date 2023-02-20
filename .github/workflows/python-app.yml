@@ -43,6 +43,8 @@ jobs:
       run: |
         pip install pytest
         pip install requests
+        import matplotlib
+        matplotlib.use('Agg')
         pip install Pillow
         pip install Tk
         python -m pytest tests/*
