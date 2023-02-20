@@ -43,4 +43,5 @@ jobs:
       run: |
         pip install pytest
         pip install requests
+        pip install Pillow
         python -m pytest tests/*
