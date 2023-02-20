@@ -1,8 +1,8 @@
+import tkinter
 from main import issue_get_request, convert_request_to_json,\
     newDatabase, newDatabaseTable, fetchDataframe
 import requests
 import sqlite3
-from tkinter import Tk
 
 
 def test_issue_get_request():
@@ -98,7 +98,7 @@ def test_fetchDataframe():
 
     json_data = convert_request_to_json(get_request)
 
-    root = Tk()
+    root = tkinter.Tk()
 
     entry = json_data['Entries'][5]
 
