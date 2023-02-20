@@ -1,5 +1,5 @@
 from main import issue_get_request, convert_request_to_json,\
-    newDatabase, newDatabaseTable, fetchDataframe, generateButtons, createDatabaseCursor
+    newDatabase, newDatabaseTable, fetchDataframe
 import requests
 import sqlite3
 import tkinter
@@ -102,18 +102,22 @@ def test_fetchDataframe():
 
     entry = json_data['Entries'][5]
 
-    assert fetchDataframe(root, entry, json_data)[0] == json_data['Entries'][5].get('Field715', None) + json_data['Entries'][5].get('Field1', None) + json_data['Entries'][5].get('Field2', None)
-    assert fetchDataframe(root, entry, json_data)[1] == json_data['Entries'][5].get('Field713', None)
-    assert fetchDataframe(root, entry, json_data)[2] == json_data['Entries'][5].get('Field714', None)
-    assert fetchDataframe(root, entry, json_data)[3] == json_data['Entries'][5].get('Field918', None) + json_data['Entries'][5].get('Field718', None)
-    assert fetchDataframe(root, entry, json_data)[4] == json_data['Entries'][5].get('Field817', None) + json_data['Entries'][5].get('Field820', None)
+    assert fetchDataframe(root, entry, json_data)[0] \
+           == json_data['Entries'][5].get('Field715', None) \
+           + json_data['Entries'][5].get('Field1', None) \
+           + json_data['Entries'][5].get('Field2', None)
+    assert fetchDataframe(root, entry, json_data)[1] \
+           == json_data['Entries'][5].get('Field713', None)
+    assert fetchDataframe(root, entry, json_data)[2] \
+           == json_data['Entries'][5].get('Field714', None)
+    assert fetchDataframe(root, entry, json_data)[3] \
+           == json_data['Entries'][5].get('Field918', None) \
+           + json_data['Entries'][5].get('Field718', None)
+    assert fetchDataframe(root, entry, json_data)[4] \
+           == json_data['Entries'][5].get('Field817', None) \
+           + json_data['Entries'][5].get('Field820', None)
+
 
 def test_databaseTable():
-    assert len(sqlite3.connect('testdb').execute("SELECT testfield1 FROM 'testtable'").fetchall()) > 1
-
-
-
-
-
-
-
+    assert len(sqlite3.connect('testdb').execute
+               ("SELECT testfield1 FROM 'testtable'").fetchall()) > 1
