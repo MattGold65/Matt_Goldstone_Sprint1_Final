@@ -121,7 +121,7 @@ def generateMainframe(json, root):
     img_label.image_ref = photo_label
     img_label.pack(pady=20)
 
-    Label(Mainframe, text="Select an entry", bg="white",
+    Label(Mainframe, text="Select an Entry:", bg="white",
           fg="#3d3d3d", font=("TkDefaultFont", 14, "bold")).pack()
     generateButtons(json, Mainframe, root)
 
