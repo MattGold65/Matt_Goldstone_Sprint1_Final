@@ -131,43 +131,43 @@ def fetchDataframe(root, entry, json):
     Dataframe.grid(row=0, column=0, sticky="nesw")
 
     Label(Dataframe, text="Full Name:", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field715', None)
           + entry.get('Field1', None)
           + " " + entry.get('Field2', None),
-          bg="#89191F", fg="white", font=("TkDefaultFont", 12)).pack()
+          bg="#89191F", fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Company: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Company: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field713', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Title: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Title: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field711', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Email: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Email: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field917', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Organization Website: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Organization Website: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field716', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Phone Number: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Phone Number: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field714', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Permission: ", bg="#89191F",
-          fg="white", font=("TkDefaultFont", 14, "bold")).pack()
+    Label(Dataframe, text="Permission: ", bg="#89191F",
+          fg="white", font=("TkDefaultFont", 12, "bold")).pack()
     Label(Dataframe, text=entry.get('Field918', None), bg="#89191F",
-          fg="white", font=("TkDefaultFont", 12)).pack()
+          fg="white", font=("TkDefaultFont", 10)).pack()
 
-    Label(Dataframe, text="\n" + "Collaberation Opportunities: ", bg="#89191F",
+    Label(Dataframe, text="Collaberation Opportunities: ", bg="#89191F",
           fg="white", font=("TkDefaultFont", 14, "bold")).pack()
     Label(Dataframe, text=" [" + entry.get('Field717', None) + "]" +
                           "\n" + " [" + entry.get('Field718', None) + "]" +
@@ -179,7 +179,7 @@ def fetchDataframe(root, entry, json):
                           bg="#89191F", fg="white",
                           font=("TkDefaultFont", 12)).pack()
 
-    Label(Dataframe, text="\n" + "Collaberation Time: ",
+    Label(Dataframe, text="Collaberation Time: ",
                           bg="#89191F", fg="white",
                           font=("TkDefaultFont", 14, "bold")).pack()
     Label(Dataframe, text=" [" + entry.get('Field817', None) + "]" +
@@ -225,7 +225,6 @@ def main():
     get_request = issue_get_request(base_url, password)
     json = convert_request_to_json(get_request)
     initiallizeGUI(json)
-    entry = json['Entries'][5]
     dbconnection = newDatabase('Wufoo_Enries_db.db')
     dbcursor = createDatabaseCursor(dbconnection)
     newDatabaseTable(dbcursor, 'guest_infomation', 'EntryID', 'Prefix',
