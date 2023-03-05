@@ -248,8 +248,6 @@ def refreshButtons(json, frame, root, dbcursor, dbconnection):
 
         iterator = iterator + 1
 
-    return iterator
-
 
 def generateMainframe(root, dbcursor, dbconnection):
     """This function generates the main home page of the GUI. This frame
